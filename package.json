@@ -1,0 +1,19 @@
+{
+  "name": "tp3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.10.0",
+    "mysql2": "^3.12.0",
+    "sequelize": "^6.37.5"
+  }
+}
