@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "seed": "node seeders.js",
     "dev": "node server.js"
   },
   "keywords": [],
