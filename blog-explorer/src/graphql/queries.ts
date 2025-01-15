@@ -31,8 +31,8 @@ export const GET_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: Int!, $firstname: String!, $lastname: String!, $email: String!) {
-    updateUser(id: $id, input: { firstname: $firstname, lastname: $lastname, email: $email }) {
+  mutation UpdateUser($id: Int!, $input: UpdateUserInput!) {
+    updateUser(id: $id, input: $input) {
       id
       firstname
       lastname
@@ -86,8 +86,8 @@ export const CREATE_POST = gql`
 `;
 
 export const UPDATE_POST = gql`
-  mutation UpdatePost($id: Int!, $title: String!, $content: String!) {
-    updatePost(id: $id, input: { title: $title, content: $content }) {
+  mutation UpdatePost($id: Int!, $input: UpdatePostInput!) {
+    updatePost(id: $id, input: $input) {
       id
       title
       content

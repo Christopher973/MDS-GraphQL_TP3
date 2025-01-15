@@ -1,8 +1,6 @@
-// schema.js
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  # Définition du type User
   type User {
     id: Int!
     firstname: String!
@@ -12,7 +10,6 @@ const typeDefs = gql`
     posts: [Post]
   }
 
-  # Définition du type Post
   type Post {
     id: Int!
     title: String!
@@ -21,7 +18,28 @@ const typeDefs = gql`
     user: User!
   }
 
-  # Définition du type Query
+  input CreateUserInput {
+    firstname: String!
+    lastname: String!
+    email: String!
+  }
+
+  input UpdateUserInput {
+    firstname: String!
+    lastname: String!
+    email: String!
+  }
+
+  input CreatePostInput {
+    title: String!
+    content: String!
+  }
+
+  input UpdatePostInput {
+    title: String!
+    content: String!
+  }
+
   type Query {
     users: [User]
     user(id: Int!): User
@@ -29,10 +47,12 @@ const typeDefs = gql`
     post(id: Int!): Post
   }
 
-  # Définition du type Mutation
   type Mutation {
-    createUser(firstname: String!, lastname: String!, email: String!): User
+    createUser(input: CreateUserInput!): User
+    updateUser(id: Int!, input: UpdateUserInput!): User
     createPost(title: String!, content: String!, userId: Int!): Post
+    updatePost(id: Int!, input: UpdatePostInput!): Post
+    deletePost(id: Int!): Post
   }
 `;
 

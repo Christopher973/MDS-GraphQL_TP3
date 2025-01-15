@@ -21,13 +21,32 @@ const resolvers = {
     createUser: async (_, { input }) => {
       return await User.create(input);
     },
+    // Modifier un utilisateur
+    updateUser: async (_, { id, input }) => {
+      const user = await User.findByPk(id);
+      if (!user) throw new Error("User not found");
+      await user.update(input);
+      return user;
+    },
     // Créer un post pour un utilisateur
-    createPost: async (_, { input }) => {
-      const user = await User.findByPk(input.userId);
-      if (user) {
-        return await Post.create({ ...input, userId: user.id });
-      }
-      throw new Error("User not found");
+    createPost: async (_, { title, content, userId }) => {
+      const user = await User.findByPk(userId);
+      if (!user) throw new Error("User not found");
+      return await Post.create({ title, content, userId });
+    },
+    // Modifier un post
+    updatePost: async (_, { id, input }) => {
+      const post = await Post.findByPk(id);
+      if (!post) throw new Error("Post not found");
+      await post.update(input);
+      return post;
+    },
+    // Supprimer un post
+    deletePost: async (_, { id }) => {
+      const post = await Post.findByPk(id);
+      if (!post) throw new Error("Post not found");
+      await post.destroy();
+      return post;
     },
   },
   User: {

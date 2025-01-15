@@ -31,11 +31,15 @@ export default function UserDetails() {
   });
 
   // Mutations
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER, {
+    refetchQueries: [{ query: GET_USER, variables: { id: parseInt(id!) } }],
+  });
   const [createPost] = useMutation(CREATE_POST, {
     refetchQueries: [{ query: GET_USER, variables: { id: parseInt(id!) } }],
   });
-  const [updatePost] = useMutation(UPDATE_POST);
+  const [updatePost] = useMutation(UPDATE_POST, {
+    refetchQueries: [{ query: GET_USER, variables: { id: parseInt(id!) } }],
+  });
   const [deletePost] = useMutation(DELETE_POST, {
     refetchQueries: [{ query: GET_USER, variables: { id: parseInt(id!) } }],
   });
@@ -44,6 +48,7 @@ export default function UserDetails() {
   if (error) return <div>Erreur : {error.message}</div>;
 
   const user = data.user;
+
   const filteredPosts = user.posts.filter((post: any) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -64,7 +69,11 @@ export default function UserDetails() {
       await updateUser({
         variables: {
           id: parseInt(id!),
-          ...userForm,
+          input: {
+            firstname: userForm.firstname,
+            lastname: userForm.lastname,
+            email: userForm.email,
+          },
         },
       });
       setIsEditingUser(false);
@@ -78,7 +87,8 @@ export default function UserDetails() {
     try {
       await createPost({
         variables: {
-          ...postForm,
+          title: postForm.title,
+          content: postForm.content,
           userId: parseInt(id!),
         },
       });
@@ -94,7 +104,10 @@ export default function UserDetails() {
       await updatePost({
         variables: {
           id: postId,
-          ...postForm,
+          input: {
+            title: postForm.title,
+            content: postForm.content,
+          },
         },
       });
       setEditingPost(null);
