@@ -2,20 +2,16 @@
 
 Une application basique développée pour apprendre les concepts fondamentaux de GraphQL.
 
-## Fonctionnalités
-
-- 📚 Introduction aux bases de React.
-- 🔄 Gestion de l'état avec les hooks.
-- 🖥️ Composants réutilisables.
-- 🚀 Hébergement sur Vercel pour une démo en ligne.
-
 ## Installation
 
-1. Clonez le dépôt :
+1. Télécharger le projet
 
-   ```bash
-   git clone https://github.com/Christopher973/cours-react-1.git
-   ```
+1. Ouvrir son IDE et le terminal
+
+```bash
+   cd Marie-Angelique_Christopher_GraphQL_TP4
+   code .
+```
 
 1. Installer les dépendances :
 
