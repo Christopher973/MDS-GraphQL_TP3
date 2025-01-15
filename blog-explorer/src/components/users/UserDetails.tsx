@@ -9,7 +9,6 @@ export default function UserDetails() {
     variables: { id: parseInt(id!) },
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   if (loading) return <div>Chargement...</div>;
   if (error) return <div>Erreur : {error.message}</div>;
@@ -19,12 +18,6 @@ export default function UserDetails() {
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const sortedPosts = [...filteredPosts].sort((a: any, b: any) => {
-    const dateA = new Date(a.created_at).getTime();
-    const dateB = new Date(b.created_at).getTime();
-    return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
-  });
-
   return (
     <div className="space-y-6">
       <div className="bg-white p-6 rounded-lg shadow">
@@ -32,9 +25,6 @@ export default function UserDetails() {
           {user.firstname} {user.lastname}
         </h2>
         <p className="text-gray-600">Email: {user.email}</p>
-        <p className="text-gray-500">
-          Membre depuis: {new Date(user.created_at).toLocaleDateString()}
-        </p>
       </div>
 
       <div className="space-y-4">
@@ -42,33 +32,21 @@ export default function UserDetails() {
           Posts de l'utilisateur
         </h3>
 
-        <div className="flex gap-4 mb-4">
-          <input
-            type="text"
-            placeholder="Rechercher un post..."
-            className="flex-1 p-2 border rounded"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
-          <button
-            className="px-4 py-2 bg-secondary text-white rounded hover:bg-opacity-90"
-            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-          >
-            Trier par date {sortOrder === "asc" ? "↑" : "↓"}
-          </button>
-        </div>
+        <input
+          type="text"
+          placeholder="Rechercher un post..."
+          className="w-full p-2 border rounded mb-4"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
         <div className="grid gap-4 md:grid-cols-2">
-          {sortedPosts.map((post: any) => (
+          {filteredPosts.map((post: any) => (
             <div key={post.id} className="bg-white p-4 rounded-lg shadow">
               <h4 className="text-lg font-semibold text-primary">
                 {post.title}
               </h4>
               <p className="text-gray-600 line-clamp-2">{post.content}</p>
-              <p className="text-sm text-gray-400 mt-2">
-                Publié le: {new Date(post.created_at).toLocaleDateString()}
-              </p>
             </div>
           ))}
         </div>

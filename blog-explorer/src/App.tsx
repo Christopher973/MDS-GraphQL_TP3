@@ -23,14 +23,6 @@ function App() {
               <Route path="/posts" element={<PostsList />} />
               <Route path="/posts/:id" element={<PostDetails />} />
             </Routes>
-
-            {/* <Routes>
-              <Route path="/" element={<UsersList />} />
-              <Route path="/users" element={<UsersList />} />
-              <Route path="/users/:id" element={<UserDetails />} />
-              <Route path="/posts" element={<PostsList />} />
-              <Route path="/posts/:id" element={<PostDetails />} />
-            </Routes> */}
           </main>
         </div>
       </Router>
